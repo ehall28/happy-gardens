@@ -13,6 +13,7 @@
   </head>
 
   <body>
+    <%# TODO: Make navbar into a partial render %>
     <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #c5e90b">
       <div class="container-fluid">
         <a class="navbar-brand" href="#">Happy Gardens</a>
@@ -33,6 +34,10 @@
         </div>
       </div>
     </nav>
+
+    <p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p>
+    
     <%= yield %>
   </body>
 </html>
