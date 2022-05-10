@@ -77,3 +77,5 @@ end
 gem "pg", "~> 1.3", :group => :production
 
 gem "devise", "~> 4.8"
+
+gem "dotenv-rails", "~> 2.7"
