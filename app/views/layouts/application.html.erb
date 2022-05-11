@@ -23,21 +23,41 @@
         <div class="collapse navbar-collapse" id="navbar">
           <div class="navbar-nav me-auto">
             <%# <button class="btn btn-sm btn-outline-success" type="button">Main button</button> %>
-            <a class="nav-link active" aria-current="page" href="#">Home</a>
-            <a class="nav-link" href="#">View Listings</a>
-            <a class="nav-link" href="#">Create Listing</a>
+            <%= link_to 'Home', '/', class: 'nav-link' %>
+            <%= link_to 'View Listings', '/listings', class: 'nav-link' %>
+            <%= link_to 'Create Listing', '/listings/new', class: 'nav-link' %>
             <!-- TODO: add if statement for account or sign in -->
             <%# <a class="nav-link" href="#">Sign In</a> %>
           </div>
 
-          <button class="btn btn-outline-success" type="submit">Sign In</button>
+          <% if user_signed_in? %>
+            <div class="ml-auto btn-toolbar p-3">
+              Welcome, <%= current_user.email %>!
+            </div>
+            <div class="ml-auto btn-toolbar">
+              <%= button_to 'Logout', destroy_user_session_path, class: 'btn btn-primary', method: :delete, form: { data: { turbo_confirm: "Are you sure you want to log out? " } } %>
+            </div>
+          <% else %>
+            <div class="ml-auto btn-toolbar p-3">
+              <%= link_to 'Sign Up', new_user_registration_path, class: 'btn btn-secondary' %>
+            </div>
+            <div class="ml-auto btn-toolbar">
+              <%= link_to 'Login', new_user_session_path, class: 'btn btn-primary' %>
+            </div>
+          <% end %>
+
         </div>
       </div>
     </nav>
 
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
-    
-    <%= yield %>
+    <main class="p-3">
+      <% if notice %>
+        <p class="alert alert-info notice" role='alert'><%= notice.html_safe %></p>
+      <% end %>
+      <% if alert %>
+        <p class="alert alert-danger" role='alert'><%= alert.html_safe %></p>
+      <% end %>
+      <%= yield %>
+    </main>
   </body>
 </html>

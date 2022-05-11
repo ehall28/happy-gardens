@@ -81,3 +81,5 @@ gem "devise", "~> 4.8"
 gem "dotenv-rails", "~> 2.7"
 
 gem "rolify", "~> 6.0"
+
+gem "pundit", "~> 2.2"
