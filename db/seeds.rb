@@ -8,13 +8,25 @@
 
 User.destroy_all
 
-user = User.create(
+admin = User.create(
     first_name: 'elise',
     last_name: 'hall',
     address: '',
     phone_number: '',
-    email: 'test@rails.com',
+    email: 'admin@a',
     password: 'test123'
 )
+admin.add_role :admin
+
+user = User.create(
+    first_name: 'tim',
+    last_name: 'waldron',
+    address: '',
+    phone_number: '',
+    email: 'user@a',
+    password: 'test123'
+)
+user.add_role :user
+
 
 puts "Users: #{User.count}"
