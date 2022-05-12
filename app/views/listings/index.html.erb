@@ -1,1 +1,27 @@
 <h1>Listings</h1>
+<div>
+    <% @listings.each do |listing| %>
+        <div class="listing-card">
+            <div class="row">
+                <div class="col">
+                    <%= listing.name %>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <%# TODO: Image goes here %>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    $<%= listing.price %>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <%= link_to 'View details', "/listings/#{listing.id}" %>
+                </div>
+            </div>
+        <div>
+    <% end %>
+</div>

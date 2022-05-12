@@ -7,6 +7,7 @@
 #   Character.create(name: "Luke", movie: movies.first)
 
 User.destroy_all
+Listing.destroy_all
 
 admin = User.create(
     first_name: 'elise',
@@ -28,5 +29,11 @@ user = User.create(
 )
 user.add_role :user
 
+user.listings.create(
+    name: 'Fuschia',
+    description: 'Planty mcplanty plant plant',
+    price: 20
+)
 
 puts "Users: #{User.count}"
+puts "Listings: #{Listing.count}"
