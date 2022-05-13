@@ -1,2 +1,30 @@
 <h1><%= @listing.name %></h1>
 <p><%= @listing.description %></p>
+<p><%= @listing.price %></p>
+
+<% if policy(@listing).edit_or_destroy? && current_user.id == @listing.user_id %>
+    <div class="btn-toolbar mt-3">
+        <%= link_to('Edit', edit_listing_path(@listing), class: 'btn btn-warning me-2') if policy(@listing).edit? %>
+        
+        <% if policy(@listing).destroy? %>
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                Delete
+            </button>
+        <% end %>
+
+    </div>
+<% end %>
+
+<!-- Modal -->
+<% if policy(@listing).destroy? %>
+    <%= render partial: 'shared/modal', locals: {
+        id: 'deleteModal', 
+        title: 'Delete?', 
+        body: "Are you sure you want to delete #{@listing.name}?", 
+        button_text: 'Delete',
+        model: @listing,
+        button_class: 'btn btn-danger',
+        method: :delete
+    } %>
+<% end %>

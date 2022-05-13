@@ -3,8 +3,6 @@ class ListingsController < ApplicationController
     before_action :set_listings
     before_action :set_listing, only: [:show, :update, :destroy, :edit]
 
-
-
     def index
     end
 
@@ -32,9 +30,18 @@ class ListingsController < ApplicationController
     end
 
     def update
+        begin 
+            @listing.update!(listing_params)
+            redirect_to @listing
+        rescue
+            flash.now[:alert] = @listing.errors.full_messages.join('<br>')
+            render 'edit'
+        end
     end
 
     def destroy
+        @listing.destroy
+        redirect_to '/listings'
     end
 
     private
@@ -43,12 +50,11 @@ class ListingsController < ApplicationController
         @listing = Listing.find(params[:id])
     end
 
-    def listing_params
-        return params.require(:listing).permit(:name, :description, :price)
-    end
-
     def set_listings
         @listings = Listing.order(:id)
     end
-    
+
+    def listing_params
+        return params.require(:listing).permit(:name, :description, :price)
+    end
 end

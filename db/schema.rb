@@ -10,11 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_05_11_042231) do
+ActiveRecord::Schema[7.0].define(version: 2022_05_13_055832) do
   create_table "listings", force: :cascade do |t|
     t.string "name"
     t.text "description"
-    t.integer "price"
+    t.float "price"
     t.string "type"
     t.integer "user_id"
     t.datetime "created_at", null: false

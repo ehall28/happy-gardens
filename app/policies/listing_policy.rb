@@ -9,15 +9,15 @@ class ListingPolicy
   end
 
   def index?
-    false
+    true
   end
 
   def show?
-    false
+    true
   end
 
   def create?
-    false
+    return @user && @user.has_role?(:user)
   end
 
   def new?
@@ -25,7 +25,7 @@ class ListingPolicy
   end
 
   def update?
-    false
+    return create?
   end
 
   def edit?
@@ -33,7 +33,11 @@ class ListingPolicy
   end
 
   def destroy?
-    false
+    create?
+  end
+
+  def edit_or_destroy?
+    return @user && (edit? || destroy?)
   end
 
   class Scope

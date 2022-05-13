@@ -32,10 +32,12 @@
 
           <% if user_signed_in? %>
             <div class="ml-auto btn-toolbar p-3">
-              Welcome, <%= current_user.email %>!
+              Welcome, <%= current_user.first_name.capitalize %>!
             </div>
             <div class="ml-auto btn-toolbar">
-              <%= button_to 'Logout', destroy_user_session_path, class: 'btn btn-primary', method: :delete, form: { data: { turbo_confirm: "Are you sure you want to log out? " } } %>
+              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#logoutModal">
+                Logout
+              </button>
             </div>
           <% else %>
             <div class="ml-auto btn-toolbar p-3">
@@ -61,3 +63,16 @@
     </main>
   </body>
 </html>
+
+<!-- Modal -->
+<% if user_signed_in? %>
+    <%= render partial: 'shared/modal', locals: {
+        id: 'logoutModal', 
+        title: 'Logout?', 
+        body: "Are you sure you want to logout, #{current_user.first_name.capitalize}?", 
+        button_text: 'Logout',
+        model: destroy_user_session_path,
+        button_class: 'btn btn-primary',
+        method: :delete
+    } %>
+<% end %>
