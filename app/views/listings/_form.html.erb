@@ -1,27 +1,52 @@
 <%= form_with(model: @listing, data: {turbo: false}) do |f| %>
-    <fieldset class="mb-2">
-        <%= f.label :name %>
-        <%= f.text_field :name %>
-    </fieldset>
-    <fieldset class="mb-2">
-        <%= f.label :description %>
-        <%= f.text_area :description %>
-    </fieldset>
-    <fieldset class="input-group mb-3">
-        <%= f.label :price %>
-        <span class="input-group-text">$</span>
-        <%= f.number_field :price, in: 0..1000, step: 0.01, class: 'form-control' %>
-    </fieldset>
+    <div class="row mb-2">
+        <div class="col-3 text-end my-auto">
+            <%= f.label :name %>
+        </div>
+        <div class="col">
+            <%= f.text_field :name, class: 'form-control' %>
+        </div>
+    </div>
+
+    <div class="row mb-2">
+        <div class="col-3 text-end my-auto">
+            <%= f.label :description %>
+        </div>
+        <div class="col">
+            <%= f.text_area :description, class: 'form-control' %>
+        </div>
+    </div>
+
+    <div class="row mb-2">
+        <div class="col-3 text-end my-auto">
+            <%= f.label :price %>
+        </div>
+        <div class="col input-group">
+            <span class="input-group-text">$</span>
+            <%= f.number_field :price, in: 0..1000, step: 0.01, class: 'form-control' %>
+        </div>
+    </div>
+
     <% if @listing.cover_image.attached? %>
-        <fieldset class="mb-2">
-        <%= cl_image_tag @listing.cover_image.key, transformation: ["media_lib_thumb"], cloud_name: ENV['CLOUDINARY_CLOUD_NAME'] %>
-        </fieldset>
+        <div class="row mb-2">
+            <div class="col-3"></div>
+            <div class="col">
+                <%= cl_image_tag @listing.cover_image.key, transformation: ["media_lib_thumb"], cloud_name: ENV['CLOUDINARY_CLOUD_NAME'] %>
+            </div>
+        </div>
     <% end %>
-    <fieldset class="mb-2">
-        <%= f.label :cover_image %>
-        <%= f.file_field :cover_image %>
-    </fieldset>
-    <fieldset>
-        <%= f.submit class: "btn btn-primary btn-sm" %>
-    </fieldset>
+
+    <div class="row mb-2">
+        <div class="col-3 text-end my-auto">
+            <%= f.label :cover_image %>
+        </div>
+        <div class="col">
+            <%= f.file_field :cover_image, class: 'form-control' %>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col text-center">
+            <%= f.submit class: "btn btn-primary btn-sm" %>
+        </div>
+    </div>
 <% end %>
