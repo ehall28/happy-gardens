@@ -1,23 +1,33 @@
-<h1><%= @listing.name %></h1>
-<p><%= @listing.description %></p>
-<p><%= @listing.price %></p>
-<%= cl_image_tag(@listing.cover_image.key, crop: :scale, width: 150, cloud_name: ENV['CLOUDINARY_CLOUD_NAME']) if @listing.cover_image.attached? %>
+<div class="d-flex flex-wrap justify-content-center">
+    <div class="card m-3 listing-card full">
+        <%= cl_image_tag(@listing.cover_image.key, cloud_name: ENV['CLOUDINARY_CLOUD_NAME'], width: 600, height: 200, crop: "fill") if @listing.cover_image.attached? %>
+        <%= image_tag("no_image.jpg", width: 600, height: 200) if !@listing.cover_image.attached? %>
+        <div class="card-body">
+            <h5 class="card-title"><%= @listing.name %></h5>
+            <p class="card-text"><%= @listing.description %></p>
+            <p class="card-text">Price: $<%= @listing.price %></p>
+        </div>
 
-<% if policy(@listing).edit_or_destroy? && current_user.id == @listing.user_id %>
-    <div class="btn-toolbar mt-3">
-        <%= link_to('Edit', edit_listing_path(@listing), class: 'btn btn-warning me-2') if policy(@listing).edit? %>
-        
-        <% if policy(@listing).destroy? %>
-            <!-- Button trigger modal -->
-            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
-                Delete
+        <% if policy(@listing).edit_or_destroy? && current_user.id == @listing.user_id %>
+            <div class="btn-toolbar mt-3">
+                <%= link_to('Edit', edit_listing_path(@listing), class: 'btn btn-warning me-2') if policy(@listing).edit? %>
+            
+                <% if policy(@listing).destroy? %>
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                        Delete
+                    </button>
+                <% end %>
+            </div>
+        <% elsif current_user && current_user.id != @listing.user_id %>
+            <button type="button" class="btn btn-primary">
+                Buy Now
             </button>
         <% end %>
-
     </div>
-<% end %>
+</div>
 
-<!-- Modal -->
+<!-- Modal for delete button -->
 <% if policy(@listing).destroy? %>
     <%= render partial: 'shared/modal', locals: {
         id: 'deleteModal', 

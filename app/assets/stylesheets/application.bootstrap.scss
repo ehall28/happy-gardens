@@ -5,3 +5,16 @@
     max-width: 650px;
     min-width: 450px;
 }
+
+.listing-card {
+    width: 300px;
+    box-sizing: unset;
+
+    &.full {
+        width: 600px;
+    }
+
+    img {
+        border-radius: 0.25rem 0.25rem 0 0;
+    }
+}

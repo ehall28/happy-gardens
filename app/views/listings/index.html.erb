@@ -1,27 +1,15 @@
 <h1>Listings</h1>
-<div>
+
+<div class="d-flex flex-wrap justify-content-center">
     <% @listings.each do |listing| %>
-        <div class="listing-card">
-            <div class="row">
-                <div class="col">
-                    <%= listing.name %>
-                </div>
+        <div class="card m-3 listing-card">
+            <%= cl_image_tag(listing.cover_image.key, cloud_name: ENV['CLOUDINARY_CLOUD_NAME'], width: 300, height: 200) if listing.cover_image.attached? %>
+            <%= image_tag("no_image.jpg", width: 300, height: 200) if !listing.cover_image.attached? %>
+            <div class="card-body">
+                <h5 class="card-title"><%= listing.name %></h5>
+                <p class="card-text">$<%= listing.price %></p>
+                <p class="card-text"><%= link_to 'View details', "/listings/#{listing.id}", class: "btn btn-primary" %></p>
             </div>
-            <div class="row">
-                <div class="col">
-                    <%# TODO: Image goes here %>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    $<%= listing.price %>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <%= link_to 'View details', "/listings/#{listing.id}" %>
-                </div>
-            </div>
-        <div>
+        </div>
     <% end %>
 </div>
