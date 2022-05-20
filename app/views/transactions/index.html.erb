@@ -4,6 +4,7 @@
 <% else %>
     <p>Total Transactions: <%= @transactions.count %></p>
 
+    <%# Simple table to render transactions %>
     <table class="table align-middle">
         <thead>
             <tr>
@@ -30,5 +31,3 @@
         </tbody>
     </table>
 <% end %>
-
-<%#= "#{t.buyer.first_name} #{t.buyer.first_name}" %>

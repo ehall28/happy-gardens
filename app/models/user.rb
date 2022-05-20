@@ -13,6 +13,7 @@ class User < ApplicationRecord
     self.add_role(:user) if self.roles.blank?
   end
 
+  # Returns the full name (first + last name)
   def full_name
     return "#{self.first_name} #{self.last_name}"
   end

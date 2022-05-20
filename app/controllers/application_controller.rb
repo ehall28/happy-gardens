@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
 
     private 
 
+    # Message when unauthorized
     def forbidden
         flash[:alert] = "You are not authorized to perform this action"
         redirect_to root_path

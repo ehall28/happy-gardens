@@ -16,6 +16,7 @@ class ListingPolicy
     true
   end
 
+  # Only user roles can create listings
   def create?
     return @user && @user.has_role?(:user)
   end

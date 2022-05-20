@@ -45,6 +45,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     devise_parameter_sanitizer.permit(:sign_up, keys: permitted_params)
   end
 
+  # List of permitted parameters for the sign up form
   def permitted_params
     return [
       :first_name,

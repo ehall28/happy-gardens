@@ -9,10 +9,12 @@ class ListingsController < ApplicationController
     def show
     end
 
+    # Create a new listing
     def new
         @listing = Listing.new
     end
 
+    # Purchase action, creates transaction, makes listing marked as sold and redirects
     def purchase
         Transaction.create(listing_id: @listing.id, buyer_id: current_user.id, seller_id: @listing.user_id)
         @listing.update!(status: 'sold')
@@ -20,6 +22,7 @@ class ListingsController < ApplicationController
         redirect_to '/my-transactions'
     end
 
+    # Creates a new listing and checks if its valid
     def create
         user = User.find(current_user.id)
         @listing = user.listings.create(listing_params)
@@ -36,6 +39,7 @@ class ListingsController < ApplicationController
     def edit
     end
 
+    # Updates a listing
     def update
         begin 
             @listing.update!(listing_params)
@@ -46,6 +50,7 @@ class ListingsController < ApplicationController
         end
     end
 
+    # Deletes a listing
     def destroy
         @listing.destroy
         redirect_to '/listings'
@@ -61,6 +66,7 @@ class ListingsController < ApplicationController
         @listings = Listing.order(:id).where(status: 'available')
     end
 
+    # Strong params for listing
     def listing_params
         return params.require(:listing).permit(:name, :description, :price, :cover_image)
     end

@@ -61,6 +61,7 @@ elise = User.create(
     password: 'test123'
 )
 elise.add_role :user
+
 # User 1 Listings
 5.times do |index|
     name = "Frangipani ##{index + 1}"
