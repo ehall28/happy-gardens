@@ -19,8 +19,8 @@
                     </button>
                 <% end %>
             </div>
-        <% elsif current_user && current_user.id != @listing.user_id %>
-            <button type="button" class="btn btn-primary">
+        <% elsif current_user && current_user.id != @listing.user_id && @listing.status == "available" %>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#buyModal">
                 Buy Now
             </button>
         <% end %>
@@ -37,5 +37,18 @@
         model: @listing,
         button_class: 'btn btn-danger',
         method: :delete
+    } %>
+<% end %>
+
+<!-- Modal for buy button -->
+<% if current_user && current_user.id != @listing.user_id && @listing.status == "available" %>
+    <%= render partial: 'shared/modal', locals: {
+        id: 'buyModal', 
+        title: 'Purchase?', 
+        body: "Are you sure you want to purchase #{@listing.name} for $#{@listing.price}?", 
+        button_text: 'Confirm',
+        model: @listing,
+        button_class: 'btn btn-danger',
+        method: :purchase
     } %>
 <% end %>

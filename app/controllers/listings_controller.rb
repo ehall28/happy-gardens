@@ -1,7 +1,7 @@
 class ListingsController < ApplicationController
     before_action :authenticate_user!, except: [:index, :show]
     before_action :set_listings
-    before_action :set_listing, only: [:show, :update, :destroy, :edit]
+    before_action :set_listing, only: [:show, :update, :destroy, :edit, :purchase]
 
     def index
     end
@@ -11,6 +11,13 @@ class ListingsController < ApplicationController
 
     def new
         @listing = Listing.new
+    end
+
+    def purchase
+        Transaction.create(listing_id: @listing.id, buyer_id: current_user.id, seller_id: @listing.user_id)
+        @listing.update!(status: 'sold')
+        flash[:notice] = "Successfully purchased #{@listing.listing_type} #{@listing.name}"
+        redirect_to '/my-transactions'
     end
 
     def create

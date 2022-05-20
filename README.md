@@ -56,6 +56,14 @@ The below sitemap demonstrates the general flow of the application. The root pag
 - PostgreSQL - Database used for production
 
 ---
+
+## Screenshots
+
+
+
+
+
+---
 ## User stories
 
 - As a user I want to view listings without an account so I can browse the website first before signing up
@@ -85,40 +93,19 @@ The below sitemap demonstrates the general flow of the application. The root pag
 
 ---
 ## Explain the different high-level components (abstractions) in your app
-    - High level abstractions - describe each model/entities and how they relate to each other and the purpose of having them in the app
 
-Abstractions are basically your models, views and controllers
-Explain how the MVC architecture and concept of inheritance impact the structure of your application and the entities within it
+When a rails application is created the ApplicationController which inherits from the ActionController::Base are pre-generated. The ActionController contains methods used to handle the HTTP requests that are received by the webserver that have been sent from the client. It uses the request parameters to process the data and return a response back to the client, for example, HTML, JSON, XML, etc. Rails is designed to do a lot of the heavy lifting for you including causing all the controllers that are created, automatically inherit the ApplicationController, removing the need to configure the application manually. All models similarly inherit the pre-generated class called ApplicationRecord, which itself inherits the class ActiveRecord::Base. ActiveRecord acts as a high level abstraction by removing the manual, tedious database validations as well as many other in depth mechanisms that would take time to implement, removing the time that could be spent on coding.  
 
-
-models:
-- all models inherit the pregenerated class called ApplicationRecord, which itself inherits the class ActiveRecord::Base.
-    - 
-
-- user
-    - user model is handled by the devise gem
-    - gives the user the ability to log in
-    - the views are handled by the devise gem which allows a user to log in, sign up and change their details
-- why do we need the user model:
-
-- Listing
-    - stores information about the item being sold through the website
-- why do we need the listing model:
-
-- transaction
-    - stores information about the purchased made
-- why do we need a transaction model:
-    - without the transaction model, there wouldn't be a way to store the information about a transaction
+In this application the listings controller handles all the interactions and inputs to show and process the listing views (rendering HTML, create/read/update/delete listings) and updates the database using the listing model and the inherited application record. The listing model is responsible for storing the listings within the database. The user model is handled by the devise gem, generating the associated controller and views. The user model is responsible for storing user data in the database and also manages inheritance between other models, eg roles, listings etc. The user controller handles the user views, which allows a user to log in, sign up and change their details. The transaction model is responsible for managing and tracking transaction from users, the controller handles the transaction view, without the transaction model there wouldn't be a way to store the information about a transaction. Models are an important aspect to a rails application as without them the calls to the database and validation of the entities would need to be done manually. This increases the room for human error, repetitious code and SQL queries would need to be written by a developer as the model would usually handle this.  
 
 ---
-## Third party services that your app will use
-    - Includes a complete and detailed description of third party services used in the app
+## Third party services
 
-- cloudinary - is a cloud based image and video storing service. It allows users to upload and store images to the cloud, once uploaded, the images can be manged and organised into folders or however you desire. Cloudinary offers the 
-- heroku 
+- Cloudinary - Cloudinary is an image and video storing service that allows users to upload and store images in the cloud. Cloudinary allows you to edit/transform and personalise any image using their image management tools. Cloudinary can handle all of the resizing or cropping that needs to be done to an image, which helps reduce page load time​. Using Cloudinary also helps eliminate the resource intensive process of creating different variants of images for different browsers or devices, allowing you to create variants from the one image. Using Cloudinary allows users to upload images to the cloud of the plant they wish to sell and also allows other users to see the images on the listings page. 
+- Heroku - Heroku is a cloud based platform used to deploy, manage and scale applications. Heroku allows developers to focus on coding without worrying about managing the infrastructure of their applications. Heroku is built on a managed container system and runs apps in smart containers. Heroku began only supporting the Ruby language, but now supports Java, Node.js, PHP, Python, Scala, Clojure and Go. The benefits of Heroku is that it works with businesses of all sizes while offering a feature rich free version.
 
 
-## Projects models in terms of the relationships (active record associations) they have with each other
+## Project models in terms of the relationships (active record associations) they have with each other
 
 Using active record associations allows you to streamline operations within your application. Without them the code becomes more complex, repetitious and certainly not DRY.
 Active record associations, such as belongs_to or has_many, tells rails that there is a connection between two models.
@@ -143,12 +130,10 @@ In the ERD below you can see that the users table contains an auto incrementing,
 ---
 ## Describe the way tasks are allocated and tracked in your project
 
-    - Shows significant planning for how tasks are planned and tracked, including a full description of the process and of the tools used
+The project was tracked using the list making application, trello (link can be found [here](https://trello.com/b/Wjpd4G0L/two-way-marketplace)). The tasks were broken down into categories to better help identify what was currently being worked on and what took priority over other tasks. I had three main sections that indicated what needed to be done, what was currently being done and what I had finished. Some of the larger tasks were split up into checklists to help break down what was required in implementing a task. For example, the different gems to implement was broken up into checklists so I could keep track of what I had installed and when it was working it was able to be checked off. I used checklists as well as a [whiteboard](#whiteboard-planning) to keep track of the tasks available for my view sections. There were many different views that displayed content and using the whiteboard let me constantly update it with ideas or drawings of how I wanted to display certain items. Using trello my tasks were also organised in a way to help structure the overall application. The usual flow begins with the routes, then onto the controllers and lastly the view. I ordered the tasks that needed to be done in a way that followed this pattern, to ensure I was implementing the correct actions at the correct time.  
 
-The project was tracked using the list making application, trello (link can be found [here](https://trello.com/b/Wjpd4G0L/two-way-marketplace)). The tasks were broken down into categories to better help identify what was currently being worked on and what took priority over other tasks. Some larger tasks were split up into checklists to help break down what the was required in implementing a task. Such as, for my view task, I added various checklist to help identify which tasks to tackle first. 
-
-- you need to implement something first before another thing ie models before views etc - thats why its structured that way also 
-
+---
+### Trello Planning
 ![trello 1](/docs/trello1.png)
 ---
 ![trello 2](/docs/trello2.png)
@@ -159,7 +144,7 @@ The project was tracked using the list making application, trello (link can be f
 ---
 ![trello 5](/docs/trello5.png)
 
-Whiteboard planning 
+### Whiteboard planning 
 ![whiteboard](/docs/planning.jpg)
 
 
