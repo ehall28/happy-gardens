@@ -59,9 +59,25 @@ The below sitemap demonstrates the general flow of the application. The root pag
 
 ## Screenshots
 
-
-
-
+![](/docs/login.png)
+---
+![](/docs/homepage.png)
+---
+![](/docs/listings.png)
+---
+![](/docs/my_listing.png)
+---
+![](/docs/create_listing.png)
+---
+![](/docs/transactions.png)
+---
+![](/docs/buy_now_modal.png)
+---
+![](/docs/edit_user.png)
+---
+![](/docs/logout_modal.png)
+--
+![](/docs/sign_up.png)
 
 ---
 ## User stories
