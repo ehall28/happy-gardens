@@ -51,7 +51,7 @@ class ListingsController < ApplicationController
     end
 
     def set_listings
-        @listings = Listing.order(:id)
+        @listings = Listing.order(:id).where(status: 'available')
     end
 
     def listing_params

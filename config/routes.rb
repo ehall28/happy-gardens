@@ -14,8 +14,9 @@ Rails.application.routes.draw do
   get '/listings/:id/edit', to: 'listings#edit', as: 'edit_listing'
   patch 'listings/:id', to: 'listings#update'
   post '/listings', to: 'listings#create'
-
   delete '/listings/:id', to: 'listings#destroy'
+
+  get '/my-transactions', to: 'transactions#index'
 
   root "home#index"
 end

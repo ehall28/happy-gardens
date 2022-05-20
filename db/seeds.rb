@@ -8,7 +8,9 @@
 
 User.destroy_all
 Listing.destroy_all
+Transaction.destroy_all
 
+# Admin
 admin = User.create(
     first_name: 'elise',
     last_name: 'hall',
@@ -19,21 +21,58 @@ admin = User.create(
 )
 admin.add_role :admin
 
-user = User.create(
+# User 1
+tim = User.create(
     first_name: 'tim',
     last_name: 'waldron',
     address: '',
     phone_number: '',
-    email: 'user@a',
+    email: 'tim@a',
     password: 'test123'
 )
-user.add_role :user
+tim.add_role :user
 
-user.listings.create(
-    name: 'Fuschia',
-    description: 'Planty mcplanty plant plant',
-    price: 20
+random = Random.new
+
+# User 1 Listings
+5.times do |index|
+    tim.listings.create(
+        name: "Fuschia ##{index + 1}",
+        description: 'Planty mcplanty plant plant',
+        price: random.rand(20..100)
+    )
+end
+
+# User 2
+elise = User.create(
+    first_name: 'elise',
+    last_name: 'hall',
+    address: '',
+    phone_number: '',
+    email: 'elise@a',
+    password: 'test123'
 )
+elise.add_role :user
+# User 1 Listings
+5.times do |index|
+    elise.listings.create(
+        name: "Frangapannie ##{index + 1}",
+        description: 'Planty mcplanty plant plant',
+        price: random.rand(20..100)
+    )
+end
 
-puts "Users: #{User.count}"
-puts "Listings: #{Listing.count}"
+# Transaction
+listing_id = elise.listings.sample.id
+transaction = Transaction.create(
+    buyer_id: tim.id,
+    seller_id: elise.id,
+    listing_id: listing_id
+)
+sold_listing = Listing.find(listing_id)
+sold_listing.status = 'sold'
+sold_listing.save!
+
+puts "Users.........: #{User.count}"
+puts "Listings......: #{Listing.count}"
+puts "Transactions..: #{Transaction.count}"

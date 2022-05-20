@@ -1,0 +1,34 @@
+<h1>Here are the transactions!</h1>
+<% if @transactions.count == 0 %>
+    <p>You have no transactions</p>
+<% else %>
+    <p>Total Transactions: <%= @transactions.count %></p>
+
+    <table class="table align-middle">
+        <thead>
+            <tr>
+                <th>Transaction ID #</th>
+                <th>Listing Name</th>
+                <th>Price</th>
+                <th>Buyer</th>
+                <th>Seller</th>
+                <th>View Listing</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <% @transactions.each do |t| %>
+                <tr>
+                    <td><%= t.id %></td>
+                    <td><%= t.listing.name %></td>
+                    <td><%= t.listing.price %></td>
+                    <td><%= t.buyer.full_name %></td>
+                    <td><%= t.seller.full_name %></td>
+                    <td><%= link_to 'View', "/listings/#{t.listing_id}", class: 'btn btn-sm btn-success' %></td>
+                </tr>
+            <% end %>
+        </tbody>
+    </table>
+<% end %>
+
+<%#= "#{t.buyer.first_name} #{t.buyer.first_name}" %>
